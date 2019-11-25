@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logintime.PrimaryController">
     <center>
@@ -15,12 +16,20 @@
     </center>
     <top>
         <AnchorPane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="openLoginFile" layoutX="21.0" layoutY="10.0" mnemonicParsing="false" onAction="#openFile" prefHeight="31.0" prefWidth="130.0" text="Open Login File" AnchorPane.leftAnchor="10.0" />
-                <TextField fx:id="userSearch" layoutX="289.0" layoutY="10.0" prefWidth="200.0" promptText="Search by username" AnchorPane.leftAnchor="150.0" />
-                <TextField fx:id="computerSearch" layoutX="79.0" layoutY="10.0" prefWidth="200.0" promptText="Search by computer name" AnchorPane.leftAnchor="360.0" />
-            <Text fx:id="credit" fill="#00000080" layoutX="626.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Created by Neil Sorkin" AnchorPane.rightAnchor="10.0" />
-            </children>
+            <Button fx:id="openLoginFile" layoutX="21.0" layoutY="10.0" mnemonicParsing="false" onAction="#openFile"
+                    prefHeight="31.0" prefWidth="130.0" text="Open Login File" AnchorPane.leftAnchor="10.0"/>
+            <TextField fx:id="userSearch" layoutX="289.0" layoutY="10.0" prefWidth="200.0"
+                       promptText="Search by username" AnchorPane.leftAnchor="150.0"/>
+            <TextField fx:id="computerSearch" layoutX="79.0" layoutY="10.0" prefWidth="200.0"
+                       promptText="Search by computer name" AnchorPane.leftAnchor="360.0"/>
+            <Text fx:id="credit" fill="#00000080" layoutX="626.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Created by Neil Sorkin" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0"/>
+            <Text fill="#00000080" layoutX="1181.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Created by Neil Sorkin" AnchorPane.rightAnchor="10.0">
+                <font>
+                    <Font size="10.0"/>
+                </font>
+            </Text>
         </AnchorPane>
     </top>
 </BorderPane>

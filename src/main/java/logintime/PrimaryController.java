@@ -40,15 +40,7 @@ public class PrimaryController {
 
     private ObservableList<Login> allData = FXCollections.observableArrayList();
 
-    /*
-    two search bars
-    one for student IDs
-    one for computer names
-    autopopulate computer searchbar with 2130
-    autocomplete feature
-     */
-
-    private Preferences preferences;
+    private Preferences preferences; // stores location of last file opened
 
     private void setPath(String newLoginPath) {
         preferences = Preferences.userNodeForPackage(this.getClass());
@@ -114,7 +106,7 @@ public class PrimaryController {
                 String computerName = line.substring(endOfUsername + 1, endOfComputerName);
                 allLogins.add(new Login(time, username, computerName));
 
-                credit.setText("Time Elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
+                credit.setText("Reading from: " + file.toPath() + ", Time Elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
             });
             allData.addAll(allLogins);
             allowFiltering();
