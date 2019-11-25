@@ -13,8 +13,10 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.prefs.Preferences;
 import java.util.stream.Stream;
 
@@ -91,26 +93,40 @@ public class PrimaryController {
     }
 
     private void readFileContents(File file) {
+        ArrayList<Login> allLogins = new ArrayList<>();
+
         try {
             long startTime = System.currentTimeMillis();
             allData.clear();
-            Stream<String> lines = Files.lines(file.toPath());
-            ArrayList<Login> allLogins = new ArrayList<>();
+            Stream<String> lines = Files.lines(file.toPath(), StandardCharsets.ISO_8859_1); // reads without issue
+            AtomicInteger linesRead = new AtomicInteger();
             lines.forEach(line -> {
-                int endOfTime = line.indexOf('.') + 3;
-                int endOfUsername = line.indexOf(' ', endOfTime + 1);
-                int endOfComputerName = line.length() - 1;
+                int lineNum = linesRead.getAndIncrement();
 
-                String time = line.substring(0, endOfTime);
-                String username = line.substring(endOfTime + 1, endOfUsername);
-                String computerName = line.substring(endOfUsername + 1, endOfComputerName);
-                allLogins.add(new Login(time, username, computerName));
+                if (!line.trim().isEmpty()) { // not a blank line
+                    int endOfLine = line.length() - 1;
+                    int endOfUsername = line.substring(0, endOfLine).lastIndexOf(" ");
+                    int endOfTime = line.substring(0, endOfUsername - 1).lastIndexOf(" ");
 
-                credit.setText("Reading from: " + file.toPath() + ", Time Elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
+                    try {
+                        String time = line.substring(0, endOfTime);
+                        String username = line.substring(endOfTime + 1, endOfUsername);
+                        String computerName = line.substring(endOfUsername + 1, endOfLine);
+
+                        allLogins.add(new Login(time, username, computerName));
+                    } catch (Exception e) {
+                        System.out.println("Bad format on line: " + lineNum);
+                    }
+                } else {
+                    System.out.println(lineNum + " is blank");
+                }
             });
+            credit.setText("Reading from: " + file.toPath() + ", Time Elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
+
             allData.addAll(allLogins);
             allowFiltering();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             allData.clear();
             credit.setText("Invalid File");
             System.out.println("Invalid file");
