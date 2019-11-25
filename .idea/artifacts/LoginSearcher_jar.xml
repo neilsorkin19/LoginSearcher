@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LoginSearcher:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LoginSearcher_jar</output-path>
+    <root id="archive" name="LoginSearcher.jar">
+      <element id="module-output" name="LoginSearcher" />
+    </root>
+  </artifact>
+</component>
