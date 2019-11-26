@@ -121,7 +121,9 @@ public class PrimaryController {
                     System.out.println(lineNum + " is blank");
                 }
             });
-            credit.setText("Reading from: " + file.toPath() + ", Time Elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
+            long sizeInMb = file.length() / (1024 * 1024);
+            credit.setText("Reading from: " + file.toPath() + "\n" +
+                    "File Size: " + sizeInMb + " MB, Time Elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
 
             allData.addAll(allLogins);
             allowFiltering();
